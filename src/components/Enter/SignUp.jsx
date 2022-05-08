@@ -1,49 +1,64 @@
 import React, { useState} from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
-// import axios from 'axios';
+import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
 
 import Enter from './Enter';
 
-
-export default function SignIn() {
-
+export default function SignUp({}) {
+    
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    // let navigate = useNavigate();
+    let navigate = useNavigate();
 
 
     function setStateOnChange(event, setStateFunction) {
         setStateFunction(event.target.value);
     }
-    
-    
+
+    async function signUp() {
+        setIsLoading(true)
+        try {
+            const link = "mongodb://localhost:27017/sign-up"
+            const answer = await axios.post(link, {username, email, password, repeatPassword});
+            navigate('/');
+            setIsLoading(false)
+        } catch {
+            console.log("error");
+            setIsLoading(false)
+        }
+    }
+
+    function setStateOnChange(event, setStateFunction) {
+        setStateFunction(event.target.value);
+    }
+
     return (
         <Enter>
             <Container>
                 <InputsContainer>
+                    <Input placeholder="Nome" value={username} disabled={isLoading} onChange={e => { setStateOnChange(e, setUsername) }}/>
                     <Input placeholder="E-mail" value={email} disabled={isLoading} onChange={e => { setStateOnChange(e, setEmail) }}/>
                     <Input type="password" placeholder="Senha" value={password} disabled={isLoading} onChange={e => { setStateOnChange(e, setPassword) }}/>
-                    <SubmitButton disabled={isLoading}>
+                    <Input type="password" placeholder="Confirme a senha" value={repeatPassword} disabled={isLoading} onChange={e => { setStateOnChange(e, setRepeatPassword) }}/>
+                    <SubmitButton disabled={isLoading} onClick={e => signUp()}>
                         {isLoading
                             ? <ThreeDots color="#fff" height={50} width={50} />
                             : "Entrar"}
                     </SubmitButton>
                 </InputsContainer>
                 <Clickable>
-                    {isLoading
-                        ? "Pera, estamos checando..."
-                        : <Link to={"/sign-up"} >Primeira vez? Cadastre-se!</Link>}
+                    <Link to={"/"} >Já tem uma conta? Entre agora!</Link>
                 </Clickable>
             </Container>
         </Enter>
     )
 }
-
-
 
 const Container = styled.div`
     display:flex;
@@ -79,7 +94,7 @@ const SubmitButton = styled.button`
     border: none;
     border-radius: 5px;
     font-weight: 700;
-    display: flex;
+    display:flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -94,5 +109,6 @@ const Clickable = styled.div`
         font-weight: 700;
     }
 `
+
 
 
