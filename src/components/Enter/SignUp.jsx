@@ -38,6 +38,7 @@ export default function SignUp({}) {
         setStateFunction(event.target.value);
     }
 
+    
     return (
         <Enter>
             <Container>
