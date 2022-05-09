@@ -26,14 +26,14 @@ export default function SignUp({}) {
     async function signUp() {
         setIsLoading(true)
         try {
-            const link = "http://localhost:5000/sign-up"
+            const link = APILink + "sign-up"
             await axios.post(link, {username, email, password, repeatPassword});
             navigate('/');
-            // setIsLoading(false)
+            setIsLoading(false)
         } catch(e){
             alert("Erro ao cadastrar front", e.response);
             console.log("Erro ao cadastrar front", e.response);
-            // setIsLoading(false)
+            setIsLoading(false)
         }
     }
 

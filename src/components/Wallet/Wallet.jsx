@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate, Link } from "react-router-dom";
+import UserContext from '../../contexts/UserContext';
+import WalletContext from '../../contexts/WalletContext';
 import styled from 'styled-components';
 
 
 export default function Wallet({}) {
 
+    const {user, setToken, setUser} = useContext(UserContext);
+
+    let navigate = useNavigate();
+
+    // function logOut() {
+    //     if (window.confirm("Você quer sair?")) {
+    //         window.localStorage.removeItem('mywallet_token');
+    //         setToken(null);
+    //         setUser(null);
+    //         navigate("/");
+    //     }
+    // }
+
     return (
         <Container>
             <Header>
-                <WelcomeLabel> Olá, pessoa! </WelcomeLabel>
-                <ion-icon size="large" name="log-out-outline" ></ion-icon>
+                <WelcomeLabel>"Olá, qualquer"</WelcomeLabel>
+                <ion-icon size="large" name="log-out-outline"></ion-icon>
             </Header>
             <Content>
             </Content>
@@ -25,7 +41,6 @@ export default function Wallet({}) {
         </Container>
     )
 }
-
 
 
 const Container = styled.div`
@@ -98,3 +113,5 @@ const NewButton = styled.div`
         background-color: var(--purple-light-hover);
     }
 `
+
+
