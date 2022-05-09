@@ -22,7 +22,7 @@ export default function SignUp(){
 
     function createAccount(e){
         e.preventDefault()
-        const promise = axios.post("http://localhost:5000/sign-up", userSignUp)
+        const promise = axios.post("https://projeto13-mywallet-back-mp.herokuapp.com/sign-up", userSignUp)
         promise.catch((e) => {
             alert("Preencha corretamente!")
             console.log(e)

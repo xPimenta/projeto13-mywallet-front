@@ -20,7 +20,7 @@ export default function Login(){
     
     function acessAccount(e){
         e.preventDefault()
-        const promise = axios.post("http://localhost:5000/sign-in", userLogin)
+        const promise = axios.post("https://projeto13-mywallet-back-mp.herokuapp.com/sign-in", userLogin)
         promise.catch((e) => {
             alert("Preencha corretamente!")
             console.log(e)

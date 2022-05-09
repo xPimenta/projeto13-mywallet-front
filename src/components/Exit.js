@@ -20,7 +20,7 @@ export default function Exit(){
     )
     function createExit(e) {
         e.preventDefault()
-        const promise = axios.post("http://localhost:5000/new-exit", exit, {
+        const promise = axios.post("https://projeto13-mywallet-back-mp.herokuapp.com/new-exit", exit, {
             headers: {
                 token: localStorage.getItem("token")
             }

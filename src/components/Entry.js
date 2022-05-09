@@ -21,7 +21,7 @@ export default function Entry(){
     )
     function createEntry(e) {
         e.preventDefault()
-        const promise = axios.post("http://localhost:5000/new-entry", entry, {
+        const promise = axios.post("https://projeto13-mywallet-back-mp.herokuapp.com/new-entry", entry, {
             headers: {
                 token: localStorage.getItem("token")
             }
@@ -65,3 +65,4 @@ const Title = styled.h1`
     font-size: 26px;
     font-weight: 700;
 `
+

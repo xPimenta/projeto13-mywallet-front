@@ -12,7 +12,7 @@ export default function Menu(){
     const [balance, setBalance] = useState(0)
     useEffect(() => {
     function getStatements(){
-        const promise = axios.get("http://localhost:5000/statement", {
+        const promise = axios.get("https://projeto13-mywallet-back-mp.herokuapp.com/statement", {
             headers: {
                 token: localStorage.getItem("token")
             }
