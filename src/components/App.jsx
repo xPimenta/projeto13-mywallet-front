@@ -4,6 +4,7 @@ import UserContext from "../contexts/UserContext";
 
 import SignIn from "./Enter/SignIn";
 import SignUp from "./Enter/SignUp";
+import Wallet from "./Wallet/Wallet";
 
 export default function App() {
 
@@ -19,6 +20,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/wallet" element={<Wallet />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

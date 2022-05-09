@@ -57,7 +57,7 @@ export default function SignIn() {
                 </InputsContainer>
                 <Clickable>
                     {isLoading
-                        ? "Pera, estamos checando..."
+                        ? "Entrando..."
                         : <Link to={"/sign-up"} >Primeira vez? Cadastre-se!</Link>}
                 </Clickable>
             </Container>
