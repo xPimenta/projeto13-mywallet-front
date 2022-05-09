@@ -8,7 +8,7 @@ export default function SignUp(){
     const [userSignUp, setUserSignUp] = useState({name: "", email: "", password: "", repeatPassword: "" })
     return(
         <SignUpPage>
-            <img src="../sources/MyWallet.png" alt="logo"/>
+            <Logo>MyWallet</Logo>
             <form onSubmit={createAccount}>
                 <input onChange={(e) => setUserSignUp({...userSignUp, name: e.target.value})} type="text" placeholder="Nome"/>
                 <input onChange={(e) => setUserSignUp({...userSignUp, email: e.target.value})} type="email" placeholder="Email"/>
@@ -60,4 +60,10 @@ const SubmitButton = styled.input`
     background-color: #A328D6;
     color: #ffffff;
     font-weight: 700;
+`
+
+const Logo = styled.h1`
+    font-family: 'Saira Stencil One', cursive;
+    font-size: 32px;
+    margin-bottom: 24px;
 `

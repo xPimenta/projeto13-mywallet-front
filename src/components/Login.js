@@ -8,7 +8,7 @@ export default function Login(){
     const [userLogin, setUserLogin] = useState({email: "", password: ""})
     return(
         <LoginPage>
-            <img src="../sources/MyWallet.png" alt="logo"/>
+            <Logo>MyWallet</Logo>
             <form onSubmit={acessAccount}>
                 <input onChange={(e) => setUserLogin({...userLogin, email: e.target.value})} placeholder="E-mail" type="email"/>
                 <input onChange={(e) => setUserLogin({...userLogin, password: e.target.value})} placeholder="Senha" type="password"/>
@@ -59,4 +59,10 @@ const SubmitButton = styled.input`
     background-color: #A328D6;
     color: #ffffff;
     font-weight: 700;
+`
+
+const Logo = styled.h1`
+    font-family: 'Saira Stencil One', cursive;
+    font-size: 32px;
+    margin-bottom: 24px;
 `
