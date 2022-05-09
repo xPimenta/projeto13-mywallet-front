@@ -1,13 +1,15 @@
-import React, { useState} from 'react';
+import React, { useState, useContext} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
+import UserContext from '../../contexts/UserContext';
 
 import Enter from './Enter';
 
 export default function SignUp({}) {
     
+    const {token, APILink} = useContext(UserContext);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -24,13 +26,14 @@ export default function SignUp({}) {
     async function signUp() {
         setIsLoading(true)
         try {
-            const link = "mongodb://localhost:27017/sign-up"
-            const answer = await axios.post(link, {username, email, password, repeatPassword});
+            const link = "http://localhost:5000/sign-up"
+            await axios.post(link, {username, email, password, repeatPassword});
             navigate('/');
-            setIsLoading(false)
-        } catch {
-            console.log("error");
-            setIsLoading(false)
+            // setIsLoading(false)
+        } catch(e){
+            alert("Erro ao cadastrar front", e.response);
+            console.log("Erro ao cadastrar front", e.response);
+            // setIsLoading(false)
         }
     }
 
@@ -38,7 +41,7 @@ export default function SignUp({}) {
         setStateFunction(event.target.value);
     }
 
-    
+
     return (
         <Enter>
             <Container>
@@ -50,9 +53,9 @@ export default function SignUp({}) {
                     <SubmitButton disabled={isLoading} onClick={e => signUp()}>
                         {isLoading
                             ? <ThreeDots color="#fff" height={50} width={50} />
-                            : "Entrar"}
+                            : "CADASTRAR"}
                     </SubmitButton>
-                </InputsContainer>
+                </InputsContainer> 
                 <Clickable>
                     <Link to={"/"} >Já tem uma conta? Entre agora!</Link>
                 </Clickable>

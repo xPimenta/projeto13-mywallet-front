@@ -1,7 +1,8 @@
-import React, { useState} from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
-// import axios from 'axios';
+import UserContext from '../../contexts/UserContext';
+import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
 
 import Enter from './Enter';
@@ -9,17 +10,38 @@ import Enter from './Enter';
 
 export default function SignIn() {
 
+    const {token, setToken, APILink} = useContext(UserContext);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    // let navigate = useNavigate();
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        if (token) {
+            navigate('/wallet');
+            console.log("TOKEN: ", token);
+        }
+    },[token]);
 
 
     function setStateOnChange(event, setStateFunction) {
         setStateFunction(event.target.value);
     }
-    
+
+    async function logIn() {
+        setIsLoading(true)
+        try {
+            const link = "http://localhost:5000/sign-in";
+            const answer = await axios.post(link, {email, password});
+            const receivedToken = answer.data;
+            localStorage.setItem('mywallet_token', JSON.stringify(receivedToken));
+            setToken(receivedToken);
+            setIsLoading(false)
+        } catch {
+            setIsLoading(false)
+        }
+    }
     
     return (
         <Enter>
@@ -27,7 +49,7 @@ export default function SignIn() {
                 <InputsContainer>
                     <Input placeholder="E-mail" value={email} disabled={isLoading} onChange={e => { setStateOnChange(e, setEmail) }}/>
                     <Input type="password" placeholder="Senha" value={password} disabled={isLoading} onChange={e => { setStateOnChange(e, setPassword) }}/>
-                    <SubmitButton disabled={isLoading}>
+                    <SubmitButton disabled={isLoading} onClick={e => logIn()}>
                         {isLoading
                             ? <ThreeDots color="#fff" height={50} width={50} />
                             : "Entrar"}
